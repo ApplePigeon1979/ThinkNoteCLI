@@ -8,6 +8,7 @@ int main() {
     cout << "Benvenuto in ThinkNoteCLI. Scegli una delle 2 opzioni.\n";
     cout << "1. Scrivi una nuova nota.\n";
     cout << "2. Apri una nota già esistente.\n";
+    cout << "3. Informazioni.\n";
     getline(cin, scelta);
 
     if (scelta == "1") {
@@ -50,7 +51,10 @@ int main() {
         cout << "Contenuto di " << filename << ":\n";
         while (getline(fileIn, nota)) cout << nota << '\n';
         fileIn.close();
-    } else {
+    } else if (scelta == "3") {
+        cout << "ThinkNoteCLI è un programma per poter scrivere note. Esso è (ovviamente) gratis, open-source e inventato in Italia.\n";
+    }
+     else {
         cout << "Opzione non valida.\n";
     }
     return 0;

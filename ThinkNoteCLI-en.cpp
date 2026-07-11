@@ -8,6 +8,7 @@ int main() {
     cout << "Welcome to ThinkNoteCLI. Choose one of the 2 options.\n";
     cout << "1. Write a new note\n";
     cout << "2. Open an already existing note.\n";
+    cout << "3. About ThinkNoteCLI\n";
     getline(cin, scelta);
 
     if (scelta == "1") {
@@ -50,7 +51,10 @@ int main() {
         cout << "Content of " << filename << ":\n";
         while (getline(fileIn, nota)) cout << nota << '\n';
         fileIn.close();
-    } else {
+    } else if (scelta == "3") {
+        cout << "ThinkNoteCLI is a program for writing notes. It is (obvisuly) free, open-source and invented in Italy.\n";
+    }
+     else {
         cout << "Option invalid.\n";
     }
     return 0;

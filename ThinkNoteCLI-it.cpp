@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    string nota, scelta, filename;
+    string nota, scelta, filename, scelta2;
     cout << "Benvenuto in ThinkNoteCLI. Scegli una delle 2 opzioni.\n";
     cout << "1. Scrivi una nuova nota.\n";
     cout << "2. Apri una nota già esistente.\n";
@@ -41,16 +41,42 @@ int main() {
             return 0;
         }
     } else if (scelta == "2") {
-        cout << "Nome file da aprire: ";
+         cout << "Nome file da aprire (es. nota.txt): ";
         getline(cin, filename);
+
         ifstream fileIn(filename);
-        if (!fileIn) {
-            cerr << "Errore: file non trovato o impossibile aprire.\n";
-            return 1;
+        if (!fileIn.is_open()) {
+            cout << "Impossibile aprire il file.\n";
+            return 0;
         }
-        cout << "Contenuto di " << filename << ":\n";
-        while (getline(fileIn, nota)) cout << nota << '\n';
+
+        cout << "---- Contenuto di " << filename << " ----\n";
+        string line;
+        while (getline(fileIn, line)) {
+            cout << line << '\n';
+        }
+        cout << "------------------------------------------\n";
+
         fileIn.close();
+
+        cout << "Desideri modificare la nota? (S/N)\n";
+        getline(cin, scelta2);
+        if (scelta2 == "S") {
+            cout << "Ora puoi scrivere la nuova nota (sovrascrivendo quella precedente):\n";
+            getline(cin, nota);
+
+            ofstream fileOut(filename, ios::trunc); 
+            if (!fileOut) {
+                cerr << "Errore apertura file in scrittura. Assicurati di aver i permessi necessari per modificare la nota.\n";
+                return 1;
+            }
+            fileOut << nota << '\n';
+            cout << "File modificato: " << filename << '\n';
+            return 0;
+        }
+        if (scelta2 == "N") {
+            return 0;
+        }
     } else if (scelta == "3") {
         cout << "ThinkNoteCLI è un programma per poter scrivere note. Esso è (ovviamente) gratis, open-source e inventato in Italia.\n";
     }
